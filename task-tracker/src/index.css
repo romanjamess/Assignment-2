@@ -1,0 +1,182 @@
+/* ====== Task Tracker — Pretty Dark Theme ====== */
+
+/* Design tokens */
+:root {
+  --bg: #0f1115;
+  --panel: #151923;
+  --panel-2: #191f2c;
+  --text: #e7ecf3;
+  --muted: #a7b0c0;
+  --brand: #6aa3ff;
+  --brand-2: #87b7ff;
+  --danger: #ff6b6b;
+  --ok: #5bd6a0;
+  --border: #283244;
+  --ring: #8cc0ff;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --gap: 16px;
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 20% -10%, #162036 0%, transparent 60%) no-repeat,
+              var(--bg);
+  color: var(--text);
+  font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  letter-spacing: .2px;
+}
+
+/* Layout */
+header, main, footer {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+}
+header { padding: 32px 0 8px; }
+main { display: grid; gap: calc(var(--gap) + 6px); padding-bottom: 40px; }
+
+/* Typography */
+h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  margin: 0 0 6px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+h2 {
+  font-size: 20px;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+p { margin: 6px 0; color: var(--muted); }
+label { display: inline-block; margin-bottom: 6px; color: var(--muted); }
+
+/* Panels (cards) */
+section {
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 640px) {
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+  width: 100%;
+  background: #0e1220;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .02s;
+}
+input::placeholder { color: #74809a; }
+input:focus, select:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 4px rgba(140,192,255,.15);
+}
+input[type="checkbox"] { transform: scale(1.15); accent-color: var(--brand); }
+
+/* Buttons */
+button {
+  appearance: none;
+  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-2) 100%);
+  color: #0b1222;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(106,163,255,.35);
+  transition: transform .06s ease, box-shadow .15s ease, opacity .15s ease;
+}
+button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(106,163,255,.45); }
+button:active { transform: translateY(0); }
+button[disabled], button[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+
+/* Secondary buttons */
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+/* Danger buttons */
+button.danger {
+  background: linear-gradient(180deg, #ff7d7d, var(--danger));
+  color: #230b0b;
+  box-shadow: 0 6px 18px rgba(255,107,107,.35);
+}
+
+/* List items (tasks) */
+ul[role="list"] { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+li.task {
+  display: flex; gap: 14px; align-items: flex-start; justify-content: space-between;
+  background: #111624;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+li.task .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+li.task .title { font-weight: 600; }
+li.task.done .title { text-decoration: line-through; color: #8ea0bd; }
+
+/* Footer tip */
+footer { color: var(--muted); font-size: 13px; padding: 8px 0 32px; }
+
+/* Dialog (delete confirm) */
+[role="dialog"] {
+  position: fixed; inset: 0; display: grid; place-items: center; padding: 16px;
+}
+[role="dialog"]::before {
+  content: ""; position: absolute; inset: 0; backdrop-filter: blur(3px);
+  background: rgba(8,12,20,.6);
+}
+[role="dialog"] > div {
+  position: relative;
+  width: min(520px, 92vw);
+  background: linear-gradient(180deg, #151923, #0f1420);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+[role="dialog"] h3 { margin: 0; padding: 16px 16px 6px; font-size: 20px; font-weight: 800; }
+[role="dialog"] p  { padding: 0 16px 8px; color: var(--muted); }
+[role="dialog"] .actions {
+  display: flex; gap: 10px; justify-content: flex-end; padding: 12px 16px 16px;
+}
+[role="dialog"] .actions .secondary { border-color: var(--border); }
+
+/* Tiny utility polish for your existing class names (so you don't refactor) */
+.border { border: 1px solid var(--border) !important; }
+.rounded-2xl { border-radius: var(--radius-lg) !important; }
+.rounded-xl  { border-radius: var(--radius-sm) !important; }
+.p-4 { padding: 16px !important; }
+.text-xs { font-size: 12px !important; color: var(--muted) !important; }
+.text-lg { font-size: 18px !important; }
+.font-semibold { font-weight: 700 !important; }
+.font-medium   { font-weight: 600 !important; }
+.bg-white { background: linear-gradient(180deg, var(--panel), var(--panel-2)) !important; }
+.shadow { box-shadow: var(--shadow) !important; }
+
+/* Form layout niceties for your specific page structure */
+section[aria-label="Add a task"] .grid { 
+  display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: var(--gap);
+}
+@media (max-width: 760px){
+  section[aria-label="Add a task"] .grid { grid-template-columns: 1fr; }
+}
