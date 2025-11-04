@@ -141,7 +141,7 @@ export default function App() {
         </p>
         {/* IH#2: communicate cost/time */}
         <p className="text-xs text-gray-600 mt-1">
-          Plan Your Day the RIGHT way 
+          Set up takes about 10 seconds 
         </p>
       </header>
 
